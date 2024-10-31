@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const monthSelect = document.getElementById('monthSelect');
     let selectedDay = null;
 
-    // 初始化年份選擇（當前年份前後十年）
+    // 初始化年份選擇（當前年份前後兩年）
     const currentYear = new Date().getFullYear();
     for (let year = currentYear - 2; year <= currentYear + 2; year++) {
         const option = document.createElement('option');
@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
         status: '開放預約'
     }));
 
-    // 預約狀況紀錄，每天都有自己的時段預約狀態
-    const availability = {};
+    // 從 localStorage 加載預約狀況，如果沒有則初始化
+    const availability = JSON.parse(localStorage.getItem('availability')) || {};
 
     // 初始化時間段下拉選單
     function initTimeSlotOptions() {
@@ -90,9 +90,31 @@ document.addEventListener('DOMContentLoaded', () => {
         // 顯示時間段的預約狀況
         availability[day].forEach(slot => {
             const listItem = document.createElement('li');
+            listItem.classList.add('time-slot-item');
+            
+            const isBooked = slot.status.startsWith('已預約');
             listItem.textContent = `${slot.time} - ${slot.status}`;
-            listItem.classList.add('time-slot-item', slot.status === '已預約' ? 'booked' : 'available');
-            listItem.addEventListener('click', () => selectTimeSlot(slot.time));
+
+            if (isBooked) {
+                // 檢查是否在可取消的時間範圍內
+                const slotStartTime = getSlotStartTime(yearSelect.value, monthSelect.value, day, slot.time);
+                const canCancel = (slotStartTime - new Date()) > 2 * 60 * 60 * 1000;
+
+                // 添加取消按鈕
+                if (canCancel) {
+                    const cancelButton = document.createElement('button');
+                    cancelButton.textContent = "取消預約";
+                    cancelButton.classList.add('cancel-btn'); // 添加取消按鈕的類別
+                    cancelButton.addEventListener('click', () => cancelBooking(day, slot));
+                    listItem.appendChild(cancelButton);
+                }
+                listItem.classList.add('booked'); // 已預約時應用背景樣式
+            } else {
+                // 若未預約則可選
+                listItem.classList.add('available');
+                listItem.addEventListener('click', () => selectTimeSlot(slot.time));
+            }
+
             list.appendChild(listItem);
         });
 
@@ -100,9 +122,20 @@ document.addEventListener('DOMContentLoaded', () => {
         initTimeSlotOptions();
     }
 
+    // 計算時間段的開始時間
+    function getSlotStartTime(year, month, day, time) {
+        const [hour] = time.split(':').map(Number);
+        return new Date(year, month, day, hour, 0, 0);
+    }
+
     // 選擇時間段並在表單中設置
     function selectTimeSlot(time) {
         timeSlotSelect.value = time;
+    }
+
+    // 儲存預約狀況到 localStorage
+    function saveAvailability() {
+        localStorage.setItem('availability', JSON.stringify(availability));
     }
 
     // 處理預約表單提交
@@ -122,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (slot && slot.status === '開放預約') {
             // 更新狀態為已預約並顯示成功訊息
             slot.status = `已預約 by ${name}`;
+            saveAvailability(); // 保存預約狀況到 localStorage
             alert(`${name} 您已成功預約 ${timeSlot}`);
             showSchedule(selectedDay); // 更新顯示當日預約狀況
         } else {
@@ -130,6 +164,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         bookingForm.reset(); // 重置表單
     });
+
+    // 處理取消預約
+    function cancelBooking(day, slot) {
+        if (confirm(`您確定要取消 ${slot.time} 的預約嗎？`)) {
+            slot.status = '開放預約';
+            saveAvailability();
+            showSchedule(day); // 更新顯示當日預約狀況
+        }
+    }
 
     createCalendar(); // 初始化當前月份的日曆
 });

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHTsai Tennis 預約系統</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>WHTsai Tennis 預約系統</h1>
+    </header>
+
+    <section class="calendar-section">
+        <h2>選擇預約日期</h2>
+
+        <!-- 年和月選擇器 -->
+        <div class="date-selectors">
+            <label for="yearSelect">年份：</label>
+            <select id="yearSelect"></select>
+            
+            <label for="monthSelect">月份：</label>
+            <select id="monthSelect">
+                <option value="0">1 月</option>
+                <option value="1">2 月</option>
+                <option value="2">3 月</option>
+                <option value="3">4 月</option>
+                <option value="4">5 月</option>
+                <option value="5">6 月</option>
+                <option value="6">7 月</option>
+                <option value="7">8 月</option>
+                <option value="8">9 月</option>
+                <option value="9">10 月</option>
+                <option value="10">11 月</option>
+                <option value="11">12 月</option>
+            </select>
+        </div>
+
+        <!-- 星期標題 -->
+        <div class="weekday-header">
+            <div>星期一</div>
+            <div>星期二</div>
+            <div>星期三</div>
+            <div>星期四</div>
+            <div>星期五</div>
+            <div>星期六</div>
+            <div>星期日</div>
+        </div>
+
+        <!-- 日曆 -->
+        <div id="calendar"></div>
+    </section>
+
+    <div class="main-content">
+        <section class="schedule-section">
+            <h2>每日預約狀況</h2>
+            <div id="schedule"></div>
+        </section>
+
+        <section class="booking-form">
+            <h2>預約時段</h2>
+            <form id="bookingForm">
+                <label for="name">姓名：</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="timeSlot">時段：</label>
+                <select id="timeSlot" name="timeSlot">
+                    <!-- 時段選項 -->
+                </select>
+
+                <button type="submit">預約</button>
+            </form>
+        </section>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

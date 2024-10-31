@@ -1,0 +1,166 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.calendar-section,
+.main-content {
+    margin-top: 20px;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+/* 年和月選擇器 */
+.date-selectors {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.date-selectors select {
+    padding: 5px;
+    font-size: 1em;
+}
+
+/* 星期標題樣式 */
+.weekday-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em; /* 調整字體大小，例如1.2em */
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* 日曆的格子樣式 */
+#calendar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* 取消置中對齊 */
+}
+
+.day {
+    width: 14.28%; /* 一週七天 */
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left; /* 讓文字對齊到左邊 */
+    box-sizing: border-box;
+}
+
+.empty {
+    visibility: hidden; /* 隱藏空白格，保持對齊 */
+}
+
+.booked {
+    background-color: #f8d7da;
+}
+
+.available {
+    background-color: #d4edda;
+}
+
+/* 主內容區域的兩欄布局 */
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.schedule-section,
+.booking-form {
+    width: 48%;
+    text-align: left;
+}
+
+/* 預約狀況的列表樣式，分成兩列顯示 */
+.time-slot-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    max-width: 400px;
+}
+
+.time-slot-item {
+    font-size: 0.9em;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.time-slot-item.available {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.time-slot-item.booked {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.day {
+    width: 14.28%; /* 一週七天 */
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center; /* 將數字置中 */
+    line-height: 1.5; /* 使用行高來讓數字在儲存格中居中 */
+    box-sizing: border-box;
+}
+
+button {
+    font-size: 1em; /* 調整按鈕字體大小，例如1em */
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 15px; /* 向右偏移10px，可根據需要調整 */
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.time-slot-item {
+    font-size: 1em; /* 調整時間段的字體大小，例如1em */
+    padding: 8px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+}
+
+label {
+    font-size: 1em; /* 調整標籤的字體大小，例如1em */
+    margin-right: 5px;
+}
+
+select {
+    font-size: 1em; /* 調整下拉選單字體大小，例如1em */
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}

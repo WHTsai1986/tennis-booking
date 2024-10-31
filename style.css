@@ -116,7 +116,7 @@ h2 {
 }
 
 .time-slot-item.booked {
-    background-color: #f8d7da;
+    background-color: #faced2;
     color: #721c24;
 }
 
@@ -138,6 +138,16 @@ button {
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
+}
+
+/* 取消預約按鈕樣式 */
+button.cancel-btn {
+    background-color: #e57373; /* 取消按鈕的底色，例如紅色 */
+    color: white; /* 按鈕文字顏色 */
+    padding: 8px 15px; /* 按鈕大小 */
+    font-size: 1em; /* 按鈕字體大小 */
+    border-radius: 3px; /* 圓角 */
+    margin-left: 10px; /* 與文字間隔 */
 }
 
 button:hover {
